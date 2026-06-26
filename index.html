@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroSpotter - Brutalist Runway Quiz</title>
+    <meta name="description" content="A bold, high-contrast plane spotting game in Swiss brutalist style.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header Controls Container -->
+    <div class="header-controls">
+        <button id="lang-toggle" class="btn-ctrl lang-btn" aria-label="Switch Language" title="Mudar Idioma">PT</button>
+        <button id="theme-toggle" class="btn-ctrl theme-btn" aria-label="Switch Theme" title="Mudar Tema">
+            <svg class="icon-sun hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <main class="app-container">
+        <!-- WELCOME SCREEN -->
+        <section id="welcome-screen" class="screen active">
+            <div class="brutalist-card welcome-card">
+                <span id="welcome-badge" class="baggage-tag">// TALENT SHOW //</span>
+                <h1 class="logo-text">AERO<br>SPOTTER</h1>
+                
+                <div class="rules-box">
+                    <h3 id="rules-title">OBSERVATION CHECKLIST:</h3>
+                    <ul id="rules-list">
+                        <li><span class="bullet">►</span> CLICK CARD TO UNVEIL SILHOUETTE.</li>
+                        <li><span class="bullet">►</span> 10 SECONDS MAXIMUM COUNTDOWN LIMIT.</li>
+                        <li><span class="bullet">►</span> VOICE IDENTIFICATION: SAY PLANE OUT LOUD.</li>
+                        <li><span class="bullet">►</span> NO HELPER OPTIONS OR MULTIPLE CHOICE.</li>
+                    </ul>
+                </div>
+
+                <button id="start-game-btn" class="btn btn-primary">
+                    <span id="start-btn-text">LAUNCH GAME</span>
+                    <span class="arrow">→</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- GAME ARENA SCREEN -->
+        <section id="game-screen" class="screen">
+            <!-- Progress Steps Grid -->
+            <div id="steps-indicator" class="steps-grid"></div>
+
+            <div class="arena-layout-stable">
+                <!-- Plane Display Card -->
+                <div id="game-card" class="brutalist-card game-card locked">
+                    <!-- Locked Cover -->
+                    <div id="card-cover" class="card-overlay">
+                        <div class="hazard-stripe"></div>
+                        <div class="overlay-content">
+                            <h2 id="locked-card-title">IDENTIFICATION PENDING</h2>
+                            <p id="locked-card-text">CLICK CARD TO REVEAL</p>
+                        </div>
+                        <div class="hazard-stripe"></div>
+                    </div>
+
+                    <!-- Active Image Viewport -->
+                    <div class="image-viewport">
+                        <img id="plane-image" src="" alt="Runway silhouette" class="plane-img">
+                        <img id="code-image" src="" alt="Airport code" class="code-img hidden">
+                        <div id="image-overlay-text" class="image-text-overlay hidden">
+                            <span id="overlay-message">TIME'S OUT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timer Section -->
+                <div class="timer-section">
+                    <span id="timer-lbl" class="timer-lbl">SHUTTER:</span>
+                    <div class="timer-track">
+                        <div id="timer-bar" class="timer-bar" style="width: 100%;"></div>
+                    </div>
+                    <div class="timer-numeric">
+                        <span id="timer-text" class="mono-text">10.0</span>s
+                    </div>
+                </div>
+
+                <!-- Controls Panel -->
+                <div class="controls-panel">
+                    <!-- Step 1: Reveal Button -->
+                    <button id="reveal-btn" class="btn btn-secondary" disabled>
+                        <span id="reveal-btn-text">REVEAL ANSWER</span>
+                    </button>
+
+                    <!-- Step 2: Validation Overlay -->
+                    <div id="validation-section" class="validation-container hidden">
+                        <div class="answer-card brutalist-card">
+                            <div id="answer-tag" class="answer-tag">// AIRCRAFT NAME //</div>
+                            <h2 id="answer-model" class="answer-model">Airbus A350-900</h2>
+                        </div>
+                        
+                        <div class="validation-verify">
+                            <span id="verify-lbl" class="verify-lbl">VALIDATE ANSWER:</span>
+                            <div class="validation-buttons">
+                                <button id="val-correct-btn" class="btn btn-success">
+                                    <span id="val-correct-lbl">CORRECT</span>
+                                </button>
+                                <button id="val-incorrect-btn" class="btn btn-danger">
+                                    <span id="val-incorrect-lbl">INCORRECT</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTS SCREEN -->
+        <section id="results-screen" class="screen">
+            <canvas id="confetti-canvas"></canvas>
+            
+            <div class="brutalist-card results-card">
+                <span id="results-badge" class="baggage-tag tag-success">COMPLETED // OK</span>
+                <h1 id="results-title" class="results-title">RELATÓRIO FINAL</h1>
+                
+
+
+                <!-- Review Section -->
+                <div class="review-section">
+                    <h3 id="debrief-heading">HISTÓRICO DE IDENTIFICAÇÕES</h3>
+                    <div id="debrief-list" class="debrief-list"></div>
+                </div>
+
+                <button id="restart-game-btn" class="btn btn-secondary">
+                    <span id="restart-btn-text">RUN SIMULATION AGAIN</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p id="footer-text"><strong>AeroSpotter: Talent Show</strong> powered by <a href="https://realfoto.pt" target="_blank">realfoto.pt</a></p>
+    </footer>
+
+    <!-- Confetti & Game Script -->
+    <script src="app.js"></script>
+</body>
+</html>
