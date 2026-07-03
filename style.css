@@ -24,10 +24,10 @@
 
 /* Dark Theme Variables Override */
 body.dark-theme {
-    --bg-page: #121212;          /* Matte dark void */
+    --bg-page: #000000;          /* Matte dark void (darker than game area cards) */
     --bg-card: #1E1E1E;          /* Deep gray panels */
     --black: #FFFFFF;            /* Invert text/borders to white */
-    --white: #121212;
+    --white: #1E1E1E;            /* Match card background */
     --yellow: #FFD200;           /* Keep iconic airport yellow */
     
     --thick-border: 3px solid #FFFFFF;
@@ -35,33 +35,6 @@ body.dark-theme {
     --flat-shadow: 6px 6px 0px #FFFFFF;  /* Set shadow to white outline instead of yellow */
     --flat-shadow-hover: 2px 2px 0px #FFFFFF;
     --shadow-color: #FFFFFF;
-}
-
-/* Dark Theme overrides to replace yellow highlights/accents with white */
-body.dark-theme .step-dot.active {
-    background: #FFFFFF;
-}
-body.dark-theme .btn-primary {
-    background: #FFFFFF;
-    color: #121212;
-}
-body.dark-theme .btn-primary * {
-    color: #121212;
-}
-body.dark-theme .baggage-tag {
-    background: #FFFFFF;
-    color: #121212;
-}
-body.dark-theme .overlay-content p {
-    background: #FFFFFF;
-    color: #121212;
-}
-body.dark-theme .timer-bar {
-    background-color: #FFFFFF;
-}
-body.dark-theme .app-footer a:hover {
-    background-color: #FFFFFF;
-    color: #121212;
 }
 
 /* Reset */
@@ -190,11 +163,12 @@ body {
     margin-bottom: 20px;
     transform: rotate(-1deg);
     align-self: center;
+    color: #000000 !important;
 }
 
 .tag-success {
     background: var(--success);
-    color: #000;
+    color: #000000 !important;
 }
 
 /* Logo & Text styling */
@@ -246,6 +220,9 @@ body {
 .btn-primary {
     background: var(--yellow);
 }
+.btn-primary, .btn-primary * {
+    color: #000000 !important;
+}
 
 .btn-primary:hover {
     transform: translate(3px, 3px);
@@ -276,7 +253,9 @@ body {
 
 .btn-success {
     background: var(--success);
-    color: #000;
+}
+.btn-success, .btn-success * {
+    color: #000000 !important;
 }
 .btn-success:hover {
     transform: translate(3px, 3px);
@@ -289,7 +268,9 @@ body {
 
 .btn-danger {
     background: var(--danger);
-    color: var(--white);
+}
+.btn-danger, .btn-danger * {
+    color: #000000 !important;
 }
 .btn-danger:hover {
     transform: translate(3px, 3px);
@@ -438,8 +419,8 @@ body.dark-theme .card-overlay {
 body.dark-theme .hazard-stripe {
     background: repeating-linear-gradient(
         -45deg,
-        #FFFFFF,
-        #FFFFFF 10px,
+        var(--yellow),
+        var(--yellow) 10px,
         #121212 10px,
         #121212 20px
     );
@@ -465,7 +446,7 @@ body.dark-theme .hazard-stripe {
     font-size: 0.95rem;
     font-weight: 900;
     background: var(--yellow);
-    color: #000;
+    color: #000000 !important;
     border: var(--thick-border);
     padding: 6px 14px;
     display: inline-block;
@@ -544,7 +525,7 @@ body.dark-theme .code-img {
     font-size: 2.2rem;
     font-weight: 900;
     background: var(--danger);
-    color: var(--white);
+    color: #000000 !important;
     border: var(--thick-border);
     padding: 8px 24px;
     transform: rotate(-2deg);
@@ -695,6 +676,7 @@ body.dark-theme .code-img {
     border-top: var(--thick-border);
     border-bottom: var(--thick-border);
     padding: 25px 0;
+    gap: 20px;
 }
 
 .score-block {
@@ -807,12 +789,12 @@ body.dark-theme .code-img {
 
 .debrief-status.correct {
     background: var(--success);
-    color: #000;
+    color: #000000 !important;
 }
 
 .debrief-status.incorrect {
     background: var(--danger);
-    color: var(--white);
+    color: #000000 !important;
 }
 
 /* Footer & Links */

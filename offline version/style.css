@@ -1,0 +1,831 @@
+/* ==========================================
+   AEROSpotter Style - Runway Brutalist Final
+   ========================================== */
+
+:root {
+    --bg-page: #E5E5E5;          /* Flat industrial light gray */
+    --bg-card: #FFFFFF;          /* Stark white */
+    
+    --yellow: #FFD200;           /* Runway yellow */
+    --black: #000000;            /* Heavy black paint */
+    --white: #FFFFFF;
+    
+    --success: #00E676;          /* Green light */
+    --danger: #FF3D00;           /* Red light */
+    
+    --thick-border: 3px solid #000000;
+    --thin-border: 1px solid #000000;
+    --flat-shadow: 6px 6px 0px #000000;
+    --flat-shadow-hover: 2px 2px 0px #000000;
+    --shadow-color: #000000;
+    
+    --transition-brutal: all 0.1s cubic-bezier(0, 0, 0, 1);
+}
+
+/* Dark Theme Variables Override */
+body.dark-theme {
+    --bg-page: #000000;          /* Matte dark void (darker than game area cards) */
+    --bg-card: #1E1E1E;          /* Deep gray panels */
+    --black: #FFFFFF;            /* Invert text/borders to white */
+    --white: #1E1E1E;            /* Match card background */
+    --yellow: #FFD200;           /* Keep iconic airport yellow */
+    
+    --thick-border: 3px solid #FFFFFF;
+    --thin-border: 1px solid #FFFFFF;
+    --flat-shadow: 6px 6px 0px #FFFFFF;  /* Set shadow to white outline instead of yellow */
+    --flat-shadow-hover: 2px 2px 0px #FFFFFF;
+    --shadow-color: #FFFFFF;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+    color: var(--black);
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body {
+    background-color: var(--bg-page);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: background-color 0.25s ease-in-out;
+}
+
+/* Screen visibility */
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    width: 100%;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+}
+
+/* CRITICAL BUG FIX: Hidden utility class */
+.hidden {
+    display: none !important;
+}
+
+/* Header Controls (Brutalist style) */
+.header-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+}
+
+.btn-ctrl {
+    background: var(--bg-card);
+    border: var(--thick-border);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+    font-size: 0.95rem;
+    font-weight: 900;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-brutal);
+}
+
+.btn-ctrl:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0px var(--shadow-color);
+}
+
+.btn-ctrl:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+.btn-ctrl svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--black);
+    fill: none;
+}
+
+/* App Container */
+.app-container {
+    width: 100%;
+    max-width: 860px; /* Expanded for larger image presence */
+    z-index: 10;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Stable height to prevent screen jumping */
+.arena-layout-stable {
+    min-height: 720px; /* Stabilized height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brutalist Card */
+.brutalist-card {
+    background: var(--bg-card);
+    border: var(--thick-border);
+    box-shadow: var(--flat-shadow);
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-brutal);
+}
+
+/* Baggage tag badge */
+.baggage-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    background: var(--yellow);
+    border: var(--thick-border);
+    border-radius: 0px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    transform: rotate(-1deg);
+    align-self: center;
+    color: #000000 !important;
+}
+
+.tag-success {
+    background: var(--success);
+    color: #000000 !important;
+}
+
+/* Logo & Text styling */
+.logo-text {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 8px;
+    background: var(--black);
+    color: var(--white);
+    padding: 3px 8px;
+    display: inline-block;
+    align-self: center;
+}
+
+.mono-text {
+    font-family: 'Share Tech Mono', monospace;
+}
+
+/* Brutalist Buttons */
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 24px;
+    font-size: 1.05rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: var(--thick-border);
+    border-radius: 0px;
+    background: var(--bg-card);
+    cursor: pointer;
+    box-shadow: var(--flat-shadow);
+    transition: var(--transition-brutal);
+    width: 100%;
+}
+
+.btn-primary {
+    background: var(--yellow);
+}
+.btn-primary, .btn-primary * {
+    color: #000000 !important;
+}
+
+.btn-primary:hover {
+    transform: translate(3px, 3px);
+    box-shadow: var(--flat-shadow-hover);
+}
+
+.btn-primary:active {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    transform: translate(3px, 3px);
+    box-shadow: var(--flat-shadow-hover);
+}
+
+.btn-secondary:active:not(:disabled) {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.btn-secondary:disabled {
+    background: #555555;
+    opacity: 0.4;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-success {
+    background: var(--success);
+}
+.btn-success, .btn-success * {
+    color: #000000 !important;
+}
+.btn-success:hover {
+    transform: translate(3px, 3px);
+    box-shadow: var(--flat-shadow-hover);
+}
+.btn-success:active {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.btn-danger {
+    background: var(--danger);
+}
+.btn-danger, .btn-danger * {
+    color: #000000 !important;
+}
+.btn-danger:hover {
+    transform: translate(3px, 3px);
+    box-shadow: var(--flat-shadow-hover);
+}
+.btn-danger:active {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+.arrow {
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+
+/* ==========================================
+   1. WELCOME SCREEN
+   ========================================== */
+.welcome-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.rules-box {
+    width: 100%;
+    background: var(--bg-page);
+    border: var(--thin-border);
+    padding: 18px;
+    text-align: left;
+}
+
+.rules-box h3 {
+    font-size: 0.9rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    letter-spacing: 0.05em;
+}
+
+.rules-box ul {
+    list-style: none;
+}
+
+.rules-box li {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.rules-box li:last-child {
+    margin-bottom: 0;
+}
+
+.rules-box .bullet {
+    font-weight: 900;
+}
+
+/* ==========================================
+   2. GAME ARENA
+   ========================================== */
+/* Steps Grid */
+.steps-grid {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 6px;
+}
+
+.step-dot {
+    flex-grow: 1;
+    height: 10px;
+    border: var(--thin-border);
+    background: var(--bg-card);
+    transition: var(--transition-brutal);
+}
+
+.step-dot.active {
+    background: var(--yellow);
+    border: var(--thick-border);
+}
+
+.step-dot.correct {
+    background: var(--success);
+}
+
+.step-dot.incorrect {
+    background: var(--danger);
+}
+
+/* Game Card (Bigger Shutter Viewport) */
+.game-card {
+    width: 100%;
+    height: 540px; /* Large display image */
+    padding: 0;
+    background: #000;
+}
+
+.game-card.locked {
+    cursor: pointer;
+}
+
+/* Locked Cover Cover Overlay */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    background: rgba(229, 229, 229, 0.7);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.dark-theme .card-overlay {
+    background: rgba(18, 18, 18, 0.7);
+}
+
+/* Diagonal stripes banner */
+.hazard-stripe {
+    width: 100%;
+    height: 24px;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--yellow),
+        var(--yellow) 10px,
+        #000000 10px,
+        #000000 20px
+    );
+    border-bottom: var(--thick-border);
+}
+
+body.dark-theme .hazard-stripe {
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--yellow),
+        var(--yellow) 10px,
+        #121212 10px,
+        #121212 20px
+    );
+}
+
+.card-overlay .hazard-stripe:last-child {
+    border-bottom: none;
+    border-top: var(--thick-border);
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.overlay-content h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.overlay-content p {
+    font-size: 0.95rem;
+    font-weight: 900;
+    background: var(--yellow);
+    color: #000000 !important;
+    border: var(--thick-border);
+    padding: 6px 14px;
+    display: inline-block;
+    letter-spacing: 0.05em;
+    transform: rotate(-1deg);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+}
+
+/* Viewport */
+.image-viewport {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #000;
+}
+
+.plane-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: filter 0.2s ease;
+}
+
+.plane-img.blurred {
+    filter: blur(25px) brightness(0.4);
+}
+
+.game-card.locked .plane-img {
+    filter: blur(35px) brightness(0.25);
+}
+
+/* Airport Code Image Layout overlaying main image */
+.code-img {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 90px;
+    z-index: 15;
+    border: var(--thick-border);
+    background: #FFFFFF;
+    box-shadow: 4px 4px 0px var(--shadow-color);
+    transition: filter 0.2s ease;
+}
+
+body.dark-theme .code-img {
+    background: #1E1E1E;
+}
+
+.code-img.blurred {
+    filter: blur(15px) brightness(0.4);
+}
+
+.game-card.locked .code-img {
+    display: none;
+}
+
+/* Shutter text overlay */
+.image-text-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+#overlay-message {
+    font-size: 2.2rem;
+    font-weight: 900;
+    background: var(--danger);
+    color: #000000 !important;
+    border: var(--thick-border);
+    padding: 8px 24px;
+    transform: rotate(-2deg);
+    box-shadow: var(--flat-shadow);
+}
+
+/* Timer Section */
+.timer-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0 20px 0;
+}
+
+.timer-lbl {
+    font-size: 0.85rem;
+    font-weight: 900;
+}
+
+.timer-track {
+    flex-grow: 1;
+    height: 18px;
+    background: var(--bg-card);
+    border: var(--thick-border);
+    overflow: hidden;
+}
+
+.timer-bar {
+    height: 100%;
+    background-color: var(--yellow);
+    transition: width 0.1s linear;
+}
+
+.timer-bar.warning {
+    background-color: var(--yellow);
+}
+
+.timer-bar.critical {
+    background-color: var(--danger);
+}
+
+.timer-numeric {
+    font-size: 1.4rem;
+    font-weight: 900;
+    min-width: 60px;
+    text-align: right;
+}
+
+.controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Spec Card */
+.answer-card {
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+.answer-tag {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: var(--black);
+    opacity: 0.6;
+    margin-bottom: 6px;
+}
+
+.answer-model {
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.answer-simplified {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--black);
+    opacity: 0.8;
+    margin-top: 2px;
+}
+
+.details-divider {
+    height: 3px;
+    background: var(--black);
+    margin: 12px 0;
+}
+
+.answer-details {
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.validation-verify {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.verify-lbl {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.validation-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    width: 100%;
+}
+
+
+/* ==========================================
+   3. RESULTS SCREEN
+   ========================================== */
+.results-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+}
+
+#confetti-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.results-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.results-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    border-top: var(--thick-border);
+    border-bottom: var(--thick-border);
+    padding: 25px 0;
+    gap: 20px;
+}
+
+.score-block {
+    background: var(--bg-card);
+    border: var(--thick-border);
+    box-shadow: var(--flat-shadow);
+    padding: 15px;
+    min-width: 180px;
+    text-align: center;
+}
+
+.score-block .lbl {
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: var(--black);
+    opacity: 0.6;
+}
+
+.score-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.big-num {
+    font-size: 2.5rem;
+    font-weight: 900;
+}
+
+.total-num {
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: var(--black);
+    opacity: 0.6;
+}
+
+/* Debrief review list */
+.review-section {
+    width: 100%;
+    text-align: left;
+}
+
+.review-section h3 {
+    font-size: 1rem;
+    font-weight: 900;
+    border-bottom: var(--thick-border);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.debrief-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.debrief-item {
+    display: flex;
+    align-items: center;
+    border: var(--thick-border);
+    background: var(--bg-card);
+    padding: 8px 12px;
+    gap: 12px;
+    transition: var(--transition-brutal);
+}
+
+.debrief-item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 3px 3px 0px var(--shadow-color);
+}
+
+.debrief-thumb-container {
+    width: 50px;
+    height: 35px;
+    border: var(--thin-border);
+    overflow: hidden;
+}
+
+.debrief-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.debrief-details {
+    flex-grow: 1;
+}
+
+.debrief-model {
+    font-size: 0.85rem;
+    font-weight: 900;
+}
+
+.debrief-desc {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--black);
+    opacity: 0.7;
+}
+
+.debrief-status {
+    font-size: 0.8rem;
+    font-weight: 900;
+    padding: 3px 8px;
+    border: var(--thin-border);
+}
+
+.debrief-status.correct {
+    background: var(--success);
+    color: #000000 !important;
+}
+
+.debrief-status.incorrect {
+    background: var(--danger);
+    color: #000000 !important;
+}
+
+/* Footer & Links */
+.app-footer {
+    padding: 25px;
+    color: var(--black);
+    opacity: 0.8;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-align: center;
+    border-top: var(--thick-border);
+    margin-top: 20px;
+    width: 100%;
+}
+
+.app-footer a {
+    color: var(--black);
+    text-decoration: underline;
+    font-weight: 900;
+    transition: background-color 0.1s ease;
+}
+
+.app-footer a:hover {
+    background-color: var(--yellow);
+    color: #000;
+}
+
+@media (max-width: 768px) {
+    .app-container { padding: 10px; }
+    .brutalist-card { padding: 15px; }
+    .logo-text { font-size: 2.4rem; }
+    .game-card { height: 320px; } /* responsive fallback */
+    .arena-layout-stable { min-height: 580px; }
+}

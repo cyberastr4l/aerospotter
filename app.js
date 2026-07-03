@@ -312,6 +312,7 @@ const TRANSLATIONS = {
         resultsBadge: "COMPLETED // OK",
         resultsTitle: "DEBRIEFING REPORT",
         resultsScoreLbl: "TOTAL SCORE",
+        resultsTimeLbl: "ELAPSED TIME",
         debriefHeading: "OBSERVED FLIGHT ARCHIVE",
         restartBtn: "RUN SIMULATION AGAIN",
         debriefPrefixPlane: "PLANE",
@@ -350,6 +351,7 @@ const TRANSLATIONS = {
         resultsBadge: "CONCLUÍDO // OK",
         resultsTitle: "RELATÓRIO DE DEBRIEFING",
         resultsScoreLbl: "PONTUAÇÃO FINAL",
+        resultsTimeLbl: "TEMPO DECORRIDO",
         debriefHeading: "ARQUIVO DE VOOS OBSERVADOS",
         restartBtn: "REINICIAR SIMULAÇÃO",
         debriefPrefixPlane: "AERONAVE",
@@ -455,6 +457,7 @@ const state = {
     score: 0,
     timeLeft: 10.0,
     timerInterval: null,
+    totalTimeUsed: 0.0,
     roundData: [],
     gameState: 'welcome',
     canClickCard: false
@@ -507,6 +510,11 @@ const DOM = {
     
     resultsBadge: document.getElementById('results-badge'),
     resultsTitle: document.getElementById('results-title'),
+    resultsScoreLbl: document.getElementById('results-score-lbl'),
+    scoreCorrect: document.getElementById('score-correct'),
+    scoreTotal: document.getElementById('score-total'),
+    resultsTimeLbl: document.getElementById('results-time-lbl'),
+    resultsTimeValue: document.getElementById('results-time-value'),
     debriefHeading: document.getElementById('debrief-heading'),
     debriefList: document.getElementById('debrief-list'),
     restartGameBtn: document.getElementById('restart-game-btn'),
@@ -646,6 +654,8 @@ function updateLanguageDOM() {
     // Results
     DOM.resultsBadge.textContent = dict.resultsBadge;
     DOM.resultsTitle.textContent = dict.resultsTitle;
+    DOM.resultsScoreLbl.textContent = dict.resultsScoreLbl;
+    DOM.resultsTimeLbl.textContent = dict.resultsTimeLbl;
     DOM.debriefHeading.textContent = dict.debriefHeading;
     DOM.restartBtnText.textContent = dict.restartBtn;
     
@@ -671,6 +681,7 @@ function startGame() {
     
     state.currentRoundIndex = 0;
     state.score = 0;
+    state.totalTimeUsed = 0.0;
     
     for (let i = 0; i < state.roundData.length; i++) {
         const dot = document.getElementById(`step-dot-${i}`);
@@ -809,6 +820,10 @@ function evaluateAnswer(isCorrect) {
     state.gameState = 'evaluated';
     state.roundData[state.currentRoundIndex].result = isCorrect;
     
+    // Accumulate time used
+    const roundTimeUsed = 10.0 - state.timeLeft;
+    state.totalTimeUsed += roundTimeUsed;
+    
     const dot = document.getElementById(`step-dot-${state.currentRoundIndex}`);
     if (isCorrect) {
         state.score++;
@@ -825,9 +840,24 @@ function evaluateAnswer(isCorrect) {
     }
 }
 
+function formatTime(seconds) {
+    const totalSecs = Math.round(seconds);
+    if (totalSecs < 60) {
+        return `${totalSecs}s`;
+    } else {
+        const mins = Math.floor(totalSecs / 60);
+        const secs = totalSecs % 60;
+        return `${mins}m ${secs}s`;
+    }
+}
+
 // Show Debriefing Results Scoreboard
 function showResults() {
     state.gameState = 'results';
+    
+    DOM.scoreCorrect.textContent = state.score;
+    DOM.scoreTotal.textContent = `/${state.roundData.length}`;
+    DOM.resultsTimeValue.textContent = formatTime(state.totalTimeUsed);
     
     renderDebriefList();
     switchScreen('results');
